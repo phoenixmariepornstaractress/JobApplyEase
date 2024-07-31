@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .container h2 {
+            background-color: #4caf50;
+            color: white;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .form-section {
+            padding: 20px;
+        }
+
+        h3 {
+            color: #333;
+            border-bottom: 2px solid #4caf50;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 10px;
+            margin-bottom: 5px;
+        }
+
+        .w3-input, .w3-select, .w3-textarea {
+            margin-bottom: 20px;
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .progress-bar {
+            width: 100%;
+            background-color: #f3f3f3;
+            margin: 20px 0;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .progress {
+            width: 0;
+            height: 5px;
+            background-color: #4caf50;
+            transition: width 0.3s ease;
+        }
+
+        .remove-entry {
+            color: red;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 10px;
+            font-size: 0.9em;
+        }
+
+        .tooltip {
+            position: relative;
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 140px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px;
+            position: absolute;
+            z-index: 1;
+            bottom: 125%;
+            left: 50%;
+            margin-left: -70px;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #45a049;
+        }
+
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .error {
+            color: red;
+            font-size: 0.8em;
+            margin-top: -15px;
+            margin-bottom: 15px;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Job Application Form</h2>
+    <form id="jobApplicationForm">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+
+        <!-- Personal Information Section -->
+        <section class="form-section">
+            <h3>Personal Information</h3>
+            <label for="fullName">Full Name:</label>
+            <input class="w3-input w3-border" type="text" id="fullName" name="fullName" required>
+
+            <label for="email">Email:</label>
+            <input class="w3-input w3-border" type="email" id="email" name="email" required>
+
+            <label for="phone">Phone:</label>
+            <input class="w3-input w3-border" type="tel" id="phone" name="phone" required>
+
+            <label for="address">Address:</label>
+            <input class="w3-input w3-border" type="text" id="address" name="address" required>
+
+            <label for="dob">Date of Birth:</label>
+            <input class="w3-input w3-border" type="date" id="dob" name="dob" required>
+
+            <label for="gender">Gender:</label>
+            <select class="w3-select w3-border" id="gender" name="gender" required>
+                <option value="" disabled selected>Choose your option</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Other">Other</option>
+            </select>
+        </section>
+
+        <!-- Work Experience Section -->
+        <section class="form-section">
+            <h3>Work Experience</h3>
+            <div id="workExperienceContainer">
+                <div class="work-experience-entry">
+                    <label for="workExperience1">Describe your work experience:</label>
+                    <textarea class="w3-input w3-border" id="workExperience1" name="workExperience" rows="5" required></textarea>
+                    <span class="remove-entry" onclick="removeEntry(this)">Remove</span>
+                </div>
+            </div>
+            <button class="btn" type="button" onclick="addWorkExperience()">Add More Work Experience</button>
+        </section>
+
+        <!-- Education Section -->
+        <section class="form-section">
+            <h3>Education</h3>
+            <div id="educationContainer">
+                <div class="education-entry">
+                    <label for="education1">List your educational background:</label>
+                    <textarea class="w3-input w3-border" id="education1" name="education" rows="5" required></textarea>
+                    <span class="remove-entry" onclick="removeEntry(this)">Remove</span>
+                </div>
+            </div>
+            <button class="btn" type="button" onclick="addEducation()">Add More Education</button>
+        </section>
+
+        <!-- References Section -->
+        <section class="form-section">
+            <h3>References</h3>
+            <div id="referencesContainer">
+                <div class="reference-entry">
+                    <label for="references1">Provide references:</label>
+                    <textarea class="w3-input w3-border" id="references1" name="references" rows="5" required></textarea>
+                    <span class="remove-entry" onclick="removeEntry(this)">Remove</span>
+                </div>
+            </div>
+            <button class="btn" type="button" onclick="addReference()">Add More References</button>
+        </section>
+
+        <!-- Resume Upload Section -->
+        <section class="form-section">
+            <h3>Resume Upload</h3>
+            <label for="resume">Upload your resume:</label>
+            <input class="w3-input w3-border" type="file" id="resume" name="resume" accept=".pdf,.doc,.docx" required>
+            <span id="resumeError" class="error"></span>
+        </section>
+
+        <!-- Skills and Certifications Section -->
+        <section class="form-section">
+            <h3>Skills and Certifications</h3>
+            <label for="skills">List your skills and certifications:</label>
+            <textarea class="w3-input w3-border" id="skills" name="skills" rows="5"></textarea>
+        </section>
+
+        <!-- Submit Button -->
+        <button class="btn w3-margin-top" type="submit">Submit</button>
+    </form>
+</div>
+
+<script>
+    const form = document.getElementById('jobApplicationForm');
+    const formFields = ['fullName', 'email', 'phone', 'address', 'dob', 'gender', 'skills'];
+
+    // Auto-save form data to localStorage
+    formFields.forEach(field => {
+        const element = document.getElementById(field);
+        element.value = localStorage.getItem(field) || '';
+        element.addEventListener('input', () => {
+            localStorage.setItem(field, element.value);
+        });
+    });
+
+    // Clear localStorage on form submission
+    form.addEventListener('submit', () => {
+        formFields.forEach(field => localStorage.removeItem(field));
+    });
+
+    // Form submission handler
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const address = document.getElementById('address').value.trim();
+        const dob = document.getElementById('dob').value.trim();
+        const gender = document.getElementById('gender').value.trim();
+        const workExperience = Array.from(document.getElementsByName('workExperience')).map(el => el.value.trim());
+        const education = Array.from(document.getElementsByName('education')).map(el => el.value.trim());
+        const references = Array.from(document.getElementsByName('references')).map(el => el.value.trim());
+        const resume = document.getElementById('resume').files[0];
+        const skills = document.getElementById('skills').value.trim();
+
+        const formData = new FormData();
+        formData.append('fullName', fullName);
+        formData.append('email', email);
+        formData.append('phone', phone);
+        formData.append('address', address);
+        formData.append('dob', dob);
+        formData.append('gender', gender);
+        workExperience.forEach((exp, index) => formData.append(`workExperience${index + 1}`, exp));
+        education.forEach((edu, index) => formData.append(`education${index + 1}`, edu));
+        references.forEach((ref, index) => formData.append(`references${index + 1}`, ref));
+        formData.append('resume', resume);
+        formData.append('skills', skills);
+
+        // Add your form submission logic here, for example:
+        // fetch('YOUR_BACKEND_URL', {
+        //     method: 'POST',
+        //     body: formData,
+        // }).then(response => response.json())
+        // .then(data => {
+        //     alert('Application submitted successfully!');
+        // }).catch(error => {
+        //     console.error('Error:', error);
+        // });
+
+        alert('Application submitted successfully!');
+    });
+
+    function addWorkExperience() {
+        const container = document.getElementById('workExperienceContainer');
+        const index = container.childElementCount + 1;
+        const newEntry = document.createElement('div');
+        newEntry.classList.add('work-experience-entry');
+        newEntry.innerHTML = `
+            <label for="workExperience${index}">Describe your work experience:</label>
+            <textarea class="w3-input w3-border" id="workExperience${index}" name="workExperience" rows="5" required></textarea>
+            <span class="remove-entry" onclick="removeEntry(this)">Remove</span>
+        `;
+        container.appendChild(newEntry);
+    }
+
+    function addEducation() {
+        const container = document.getElementById('educationContainer');
+        const index = container.childElementCount + 1;
+        const newEntry = document.createElement('div');
+        newEntry.classList.add('education-entry');
+        newEntry.innerHTML = `
+            <label for="education${index}">List your educational background:</label>
+            <textarea class="w3-input w3-border" id="education${index}" name="education" rows="5" required></textarea>
+            <span class="remove-entry" onclick="removeEntry(this)">Remove</span>
+        `;
+        container.appendChild(newEntry);
+    }
+
+    function addReference() {
+        const container = document.getElementById('referencesContainer');
+        const index = container.childElementCount + 1;
+        const newEntry = document.createElement('div');
+        newEntry.classList.add('reference-entry');
+        newEntry.innerHTML = `
+            <label for="references${index}">Provide references:</label>
+            <textarea class="w3-input w3-border" id="references${index}" name="references" rows="5" required></textarea>
+            <span class="remove-entry" onclick="removeEntry(this)">Remove</span>
+        `;
+        container.appendChild(newEntry);
+    }
+
+    function removeEntry(element) {
+        element.parentElement.remove();
+    }
+</script>
+
+</body>
+</html>
